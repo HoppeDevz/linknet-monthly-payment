@@ -1,10 +1,10 @@
 export const getUserPlansSQL =
 /* sql */`
 SELECT
-    up.id
+    up.id,
     up.user_id,
     up.plan_id,
-    up.status
+    up.status,
     up.created_at,
     up.updated_at
 FROM
