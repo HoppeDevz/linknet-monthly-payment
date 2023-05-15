@@ -9,6 +9,7 @@ import { paymentPlansRoutes } from '@/routes/payment-plans.routes';
 import { ErrorHandler } from '@/http/middlewares/error-handler';
 
 import { API_PORT } from "./constants";
+import { userPlansRoutes } from "./routes/users-plans.routes";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use(userRoutes);
 app.use(paymentPlansRoutes)
+app.use(userPlansRoutes);
 
 app.use(ErrorHandler);
 app.listen(API_PORT, () => {

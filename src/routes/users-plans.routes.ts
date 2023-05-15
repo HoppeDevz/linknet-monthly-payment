@@ -3,7 +3,7 @@ import { activateUserPlan, createUserPlan, desactivateUserPlan, getAllUserPlans 
 
 export const userPlansRoutes = Router();
 
-userPlansRoutes.get("/user-plans/all", getAllUserPlans);
+userPlansRoutes.get("/user-plans/all/:user_id", getAllUserPlans);
 userPlansRoutes.post("/user-plans/create", createUserPlan);
 userPlansRoutes.patch("/user-plans/activate/:id", activateUserPlan);
 userPlansRoutes.patch("/user-plans/desactivate/:id", desactivateUserPlan);
