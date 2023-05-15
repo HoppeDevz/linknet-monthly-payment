@@ -1,29 +1,89 @@
-import dayjs from "dayjs";
+import { IUserUseCases, User } from "../domain/users";
+import { UserRepository } from "../repositories/postgres/users.postgres.repositories";
+import { CustomError } from "@/errors/custom-error";
+import { EHTTP } from "@/enums/http-status-codes";
+import { internalErrorCodes } from "@/enums/internal-error-codes";
+import { getInternalErrorMessageByErrorCode } from "@/enums/internal-error-messages";
 
-import { IUserUseCases } from "../domain/users";
-import { UserRepository } from "../repositories/mysql/users.mysql.repositories";
 
-
-export const createUser = async (firstName: string, lastName: string, identificationNumberType: string, identificationDocument: string, email: string | null, phone: string) => {
+export const create = async (user: User) => {
 
     try {
 
-        const user = await UserRepository.createUser(firstName, lastName, identificationNumberType, identificationDocument, email, phone);
+        const someOverlappedUser = await findOverlapping({
+            email: user.email, 
+            phone: user.phone
+        });
 
-        return user;
+        if (someOverlappedUser) {
+
+            throw new CustomError(
+                EHTTP.StatusBadRequest, 
+                internalErrorCodes.UserAlreadyExists, 
+                getInternalErrorMessageByErrorCode(internalErrorCodes.UserAlreadyExists)
+            );
+        }
+
+        const createdUser = await UserRepository.create(user);
+
+        return createdUser;
 
     } catch(err) {
 
         throw err;
-
     }
 }
 
-export const getUser = async (userId: number) => {
+export const update = async(user: User) => {
 
     try {
 
-        const user = await UserRepository.getUser(userId);
+        const updatedUser = await UserRepository.update(user);
+
+        return updatedUser;
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
+export const remove = async(userId: number) => {
+
+    try {
+
+        await UserRepository.remove(userId);
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
+export const findOverlapping = async (uniqueFields: Pick<User, "email" | "phone">) => {
+
+    try {
+
+        const overlappedUsers = await UserRepository.findByUniqueFields(uniqueFields);
+
+        if (overlappedUsers.length === 0) {
+
+            return undefined;
+        }
+
+        return overlappedUsers[0];
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
+export const findById = async (userId: number) => {
+
+    try {
+
+        const user = await UserRepository.findById(userId);
 
         return user;
 
@@ -34,7 +94,9 @@ export const getUser = async (userId: number) => {
 } 
 
 export const UserUseCases: IUserUseCases = {
-
-    createUser,
-    getUser
+    create,
+    update,
+    remove,
+    findOverlapping,
+    findById
 } 

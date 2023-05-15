@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserSQL = void 0;
-exports.getUserSQL = 
-/* sql */ `
+export const getLastInsertedUserSQL = 
+/* sql */`
 SELECT
     u.user_id,
     u.first_name,
@@ -16,5 +13,5 @@ SELECT
 FROM
     linknet.users u
 WHERE
-    u.user_id = ?
+    u.user_id = LAST_INSERT_ID();
 `;

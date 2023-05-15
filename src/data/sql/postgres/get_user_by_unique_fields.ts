@@ -1,5 +1,4 @@
-
-export const getUserSQL = 
+export const getUserByUniqueFieldsSQL = 
 /* sql */`
 SELECT
     u.user_id,
@@ -12,7 +11,8 @@ SELECT
     u.created_at,
     u.updated_at
 FROM
-    linknet.users u
+    public.users u
 WHERE
-    u.user_id = ?
+    u.email = $1
+    AND u.phone = $2
 `;

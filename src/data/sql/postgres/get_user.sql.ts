@@ -1,8 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserSQL = void 0;
-exports.getUserSQL = 
-/* sql */ `
+
+export const getUserSQL = 
+/* sql */`
 SELECT
     u.user_id,
     u.first_name,
@@ -14,7 +12,7 @@ SELECT
     u.created_at,
     u.updated_at
 FROM
-    linknet.users u
+    public.users u
 WHERE
-    u.user_id = ?
+    u.user_id = $1
 `;

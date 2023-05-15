@@ -8,17 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserUseCases = exports.getUser = exports.createUser = void 0;
-const dayjs_1 = __importDefault(require("dayjs"));
 const users_mysql_repositories_1 = require("../repositories/mysql/users.mysql.repositories");
 const createUser = (firstName, lastName, identificationNumberType, identificationDocument, email, phone) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const createdAt = (0, dayjs_1.default)().unix();
-        const updatedAt = (0, dayjs_1.default)().unix();
         const user = yield users_mysql_repositories_1.UserRepository.createUser(firstName, lastName, identificationNumberType, identificationDocument, email, phone);
         return user;
     }

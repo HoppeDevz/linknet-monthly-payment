@@ -1,17 +1,25 @@
-import { createUserSQL } from "../../data/sql/create_user.sql";
-import { getLastInsertedUserSQL } from "../../data/sql/get_last_inserted_user.sql";
-import { getUserSQL } from "../../data/sql/get_user.sql";
+import { createUserSQL } from "../../data/sql/mysql/create_user.sql";
+import { getLastInsertedUserSQL } from "../../data/sql/mysql/get_last_inserted_user.sql";
+import { getUserSQL } from "../../data/sql/mysql/get_user.sql";
 import { connectionQuery, query, runTransaction } from "../../database/mysql";
 
 import type { IUsersRepository, User } from "../../domain/users";
 
-const createUser = async (firstName: string, lastName: string, identificationNumberType: string, identificationDocument: string, email: string | null, phone: string) => {
+const create = async (user: User) => {
     
     try {
 
         const [createdUser] = await runTransaction(async (poolConnection) => {
 
-            await connectionQuery(poolConnection, createUserSQL, [firstName, lastName, identificationNumberType, identificationDocument, email, phone]);
+            await connectionQuery(poolConnection, createUserSQL, [
+                user.first_name, 
+                user.last_name, 
+                user.identification_document_type, 
+                user.identification_document, 
+                user.email, 
+                user.phone
+            ]);
+
             return await connectionQuery(poolConnection, getLastInsertedUserSQL) as User[];
         });
 
@@ -24,7 +32,7 @@ const createUser = async (firstName: string, lastName: string, identificationNum
     }
 }
 
-const getUser = async (userId: number) => {
+const findById = async (userId: number) => {
 
     try {
 
@@ -38,8 +46,10 @@ const getUser = async (userId: number) => {
     }
 }
 
+/*
 export const UserRepository: IUsersRepository = {
 
-    createUser,
-    getUser
+    create,
+    findById
 }
+*/

@@ -1,8 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserSQL = void 0;
-exports.getUserSQL = 
-/* sql */ `
+
+export const getUserSQL = 
+/* sql */`
 SELECT
     u.user_id,
     u.first_name,
