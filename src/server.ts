@@ -1,5 +1,4 @@
 require("express-async-errors");
-import * as dotenv from 'dotenv'; dotenv.config();
 
 import express from "express";
 import cors from "cors";
@@ -8,6 +7,8 @@ import { userRoutes } from "@/routes/users.routes";
 import { paymentPlansRoutes } from '@/routes/payment-plans.routes';
 
 import { ErrorHandler } from '@/http/middlewares/error-handler';
+
+import { API_PORT } from "./constants";
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.use(userRoutes);
 app.use(paymentPlansRoutes)
 
 app.use(ErrorHandler);
-app.listen(process.env.API_PORT, () => {
+app.listen(API_PORT, () => {
 
-    console.log(`[USERS-API] - Running at port: ${process.env.API_PORT}`)
+    console.log(`[USERS-API] - Running at port: ${API_PORT}`)
 });

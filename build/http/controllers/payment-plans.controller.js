@@ -9,26 +9,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUser = exports.removeUser = exports.updateUser = exports.createUser = void 0;
-const users_usecases_1 = require("../../useCases/users.usecases");
-const users_validations_1 = require("../validations/users.validations");
+exports.getAllPaymentPlans = exports.deletePaymentPlan = exports.updatePaymentPlan = exports.createPaymentPlan = void 0;
 const custom_error_1 = require("../../errors/custom-error");
+const http_status_codes_1 = require("../../enums/http-status-codes");
 const internal_error_codes_1 = require("../../enums/internal-error-codes");
 const internal_error_messages_1 = require("../../enums/internal-error-messages");
-const http_status_codes_1 = require("../../enums/http-status-codes");
+const payment_plans_usecases_1 = require("../../useCases/payment-plans.usecases");
+const payment_plans_validations_1 = require("../validations/payment-plans.validations");
 const http_status_messages_1 = require("../../enums/http-status-messages");
-const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const createPaymentPlan = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const createUserBody = users_validations_1.createUsersBodySchema.parse(req.body);
-        const createdUser = yield users_usecases_1.UserUseCases.create({
-            first_name: createUserBody.firstName,
-            last_name: createUserBody.lastName,
-            identification_document_type: createUserBody.identificationDocumentType,
-            identification_document: createUserBody.identificationDocument,
-            email: createUserBody.email,
-            phone: createUserBody.phone
+        const body = payment_plans_validations_1.createPaymentPlanBodySchema.parse(req.body);
+        const createdPaymentPlan = yield payment_plans_usecases_1.PaymentPlansUseCases.create({
+            name: body.name,
+            download_byte_rate: body.downloadRate,
+            upload_byte_rate: body.uploadRate,
+            price: body.price
         });
-        res.status(http_status_codes_1.EHTTP.StatusOK).send(createdUser);
+        res.status(http_status_codes_1.EHTTP.StatusOK).send(createdPaymentPlan);
     }
     catch (err) {
         if (err instanceof custom_error_1.CustomError) {
@@ -37,12 +35,12 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         throw new custom_error_1.CustomError(http_status_codes_1.EHTTP.StatusInternalServerError, internal_error_codes_1.internalErrorCodes.InternalServerError, (0, internal_error_messages_1.getInternalErrorMessageByErrorCode)(internal_error_codes_1.internalErrorCodes.InternalServerError), err);
     }
 });
-exports.createUser = createUser;
-const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createPaymentPlan = createPaymentPlan;
+const updatePaymentPlan = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const toUpdateUser = users_validations_1.updateUserBodySchema.parse(req.body);
-        const updatedUser = yield users_usecases_1.UserUseCases.update(toUpdateUser);
-        res.status(http_status_codes_1.EHTTP.StatusOK).send(updatedUser);
+        const body = payment_plans_validations_1.updatePaymentPlanBodySchema.parse(req.body);
+        const updatedPaymentPlan = yield payment_plans_usecases_1.PaymentPlansUseCases.update(body);
+        res.status(http_status_codes_1.EHTTP.StatusOK).send(updatedPaymentPlan);
     }
     catch (err) {
         if (err instanceof custom_error_1.CustomError) {
@@ -51,11 +49,11 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         throw new custom_error_1.CustomError(http_status_codes_1.EHTTP.StatusInternalServerError, internal_error_codes_1.internalErrorCodes.InternalServerError, (0, internal_error_messages_1.getInternalErrorMessageByErrorCode)(internal_error_codes_1.internalErrorCodes.InternalServerError), err);
     }
 });
-exports.updateUser = updateUser;
-const removeUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.updatePaymentPlan = updatePaymentPlan;
+const deletePaymentPlan = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const params = users_validations_1.removeUserParamsSchema.parse(req.params);
-        yield users_usecases_1.UserUseCases.remove(params.user_id);
+        const params = payment_plans_validations_1.deletePaymentPlanParamsSchema.parse(req.params);
+        yield payment_plans_usecases_1.PaymentPlansUseCases.remove(params.id);
         res.status(http_status_codes_1.EHTTP.StatusOK).send(http_status_messages_1.EHTTPStatusMessages.StatusOK);
     }
     catch (err) {
@@ -65,17 +63,11 @@ const removeUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         throw new custom_error_1.CustomError(http_status_codes_1.EHTTP.StatusInternalServerError, internal_error_codes_1.internalErrorCodes.InternalServerError, (0, internal_error_messages_1.getInternalErrorMessageByErrorCode)(internal_error_codes_1.internalErrorCodes.InternalServerError), err);
     }
 });
-exports.removeUser = removeUser;
-const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.deletePaymentPlan = deletePaymentPlan;
+const getAllPaymentPlans = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const params = users_validations_1.getUserParams.parse(req.params);
-        const fetchedUser = yield users_usecases_1.UserUseCases.findById(params.user_id);
-        if (fetchedUser) {
-            res.status(http_status_codes_1.EHTTP.StatusOK).send(fetchedUser);
-        }
-        else {
-            res.status(http_status_codes_1.EHTTP.StatusNotFound).send("User not found!");
-        }
+        const paymentPlans = yield payment_plans_usecases_1.PaymentPlansUseCases.getAll();
+        res.status(http_status_codes_1.EHTTP.StatusOK).send(paymentPlans);
     }
     catch (err) {
         if (err instanceof custom_error_1.CustomError) {
@@ -84,4 +76,4 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         throw new custom_error_1.CustomError(http_status_codes_1.EHTTP.StatusInternalServerError, internal_error_codes_1.internalErrorCodes.InternalServerError, (0, internal_error_messages_1.getInternalErrorMessageByErrorCode)(internal_error_codes_1.internalErrorCodes.InternalServerError), err);
     }
 });
-exports.getUser = getUser;
+exports.getAllPaymentPlans = getAllPaymentPlans;

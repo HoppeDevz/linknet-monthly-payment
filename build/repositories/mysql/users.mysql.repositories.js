@@ -9,15 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRepository = void 0;
-const create_user_sql_1 = require("../../data/sql/create_user.sql");
-const get_last_inserted_user_sql_1 = require("../../data/sql/get_last_inserted_user.sql");
-const get_user_sql_1 = require("../../data/sql/get_user.sql");
+const create_user_sql_1 = require("../../data/sql/mysql/create_user.sql");
+const get_last_inserted_user_sql_1 = require("../../data/sql/mysql/get_last_inserted_user.sql");
+const get_user_sql_1 = require("../../data/sql/mysql/get_user.sql");
 const mysql_1 = require("../../database/mysql");
-const createUser = (firstName, lastName, identificationNumberType, identificationDocument, email, phone) => __awaiter(void 0, void 0, void 0, function* () {
+const create = (user) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const [createdUser] = yield (0, mysql_1.runTransaction)((poolConnection) => __awaiter(void 0, void 0, void 0, function* () {
-            yield (0, mysql_1.connectionQuery)(poolConnection, create_user_sql_1.createUserSQL, [firstName, lastName, identificationNumberType, identificationDocument, email, phone]);
+            yield (0, mysql_1.connectionQuery)(poolConnection, create_user_sql_1.createUserSQL, [
+                user.first_name,
+                user.last_name,
+                user.identification_document_type,
+                user.identification_document,
+                user.email,
+                user.phone
+            ]);
             return yield (0, mysql_1.connectionQuery)(poolConnection, get_last_inserted_user_sql_1.getLastInsertedUserSQL);
         }));
         return createdUser;
@@ -26,7 +32,7 @@ const createUser = (firstName, lastName, identificationNumberType, identificatio
         throw err;
     }
 });
-const getUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+const findById = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const [user] = yield (0, mysql_1.query)(get_user_sql_1.getUserSQL, [userId]);
         return user;
@@ -35,7 +41,10 @@ const getUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
         throw err;
     }
 });
-exports.UserRepository = {
-    createUser,
-    getUser
-};
+/*
+export const UserRepository: IUsersRepository = {
+
+    create,
+    findById
+}
+*/ 

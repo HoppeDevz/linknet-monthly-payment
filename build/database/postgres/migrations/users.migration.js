@@ -1,5 +1,8 @@
-export const usersMigration = 
-/* sql */`
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.usersMigration = void 0;
+exports.usersMigration = 
+/* sql */ `
 CREATE TABLE IF NOT EXISTS users(
     
   user_id SERIAL PRIMARY KEY,
@@ -17,14 +20,12 @@ CREATE TABLE IF NOT EXISTS users(
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- CONSTRAINTS
 ALTER TABLE users DROP CONSTRAINT IF EXISTS unique_email;
 ALTER TABLE users DROP CONSTRAINT IF EXISTS unique_phone;
 
 ALTER TABLE users ADD CONSTRAINT unique_email UNIQUE (email);
 ALTER TABLE users ADD CONSTRAINT unique_phone UNIQUE (phone);
 
--- TRIGGERS
 CREATE OR REPLACE FUNCTION update_user_modified_time()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -40,4 +41,4 @@ CREATE TRIGGER user_modified
 BEFORE UPDATE ON users
 FOR EACH ROW
 EXECUTE FUNCTION update_user_modified_time();
-`
+`;

@@ -9,17 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.runMySQLMigrations = void 0;
-const index_1 = require("../index");
-const payment_plans_migration_1 = require("./payment-plans.migration");
+const postgres_1 = require("../../postgres");
 const users_migration_1 = require("./users.migration");
-const runMySQLMigrations = () => __awaiter(void 0, void 0, void 0, function* () {
+const payment_plans_migration_1 = require("./payment-plans.migration");
+const users_plans_migration_1 = require("./users_plans.migration");
+(() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, index_1.query)(users_migration_1.usersMigration);
-        yield (0, index_1.query)(payment_plans_migration_1.paymentPlansMigration);
+        console.log("[POSTGRES-MIGRATIONS] - usersMigration");
+        yield (0, postgres_1.query)(users_migration_1.usersMigration);
+        console.log("[POSTGRES-MIGRATIONS] - paymentPlansMigration");
+        yield (0, postgres_1.query)(payment_plans_migration_1.paymentPlansMigration);
+        console.log("[POSTGRES-MIGRATIONS] - usersPlansMigration");
+        yield (0, postgres_1.query)(users_plans_migration_1.usersPlansMigration);
     }
     catch (err) {
-        console.log("[MY-SQL] - Error while trying to run MYSQL migrations");
+        console.error(err);
+        console.log("[POSTGRES] - Error while trying to run POSTGRES migrations");
     }
-});
-exports.runMySQLMigrations = runMySQLMigrations;
+}))();

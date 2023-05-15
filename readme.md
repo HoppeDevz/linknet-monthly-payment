@@ -27,6 +27,11 @@ docker run -it --rm --name linknet-postgres -v pgdata:/var/lib/postgresql/data \
 -e POSTGRES_DB=linknet -p 5432:5432 -d postgres
 ```
 
+3. Run database migrations:
+```shell
+yarn postgres:migrations
+```
+
 ## Conclusion
 
 That's it! You should now be able to run the project locally and connect to the database. If you have any questions or issues, please refer to the project documentation or contact us for support.

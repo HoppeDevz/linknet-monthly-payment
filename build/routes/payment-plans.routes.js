@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.paymentPlansRoutes = void 0;
+const express_1 = require("express");
+const payment_plans_controller_1 = require("../http/controllers/payment-plans.controller");
+exports.paymentPlansRoutes = (0, express_1.Router)();
+exports.paymentPlansRoutes.get("/payment-plans/all", payment_plans_controller_1.getAllPaymentPlans);
+exports.paymentPlansRoutes.post("/payment-plans", payment_plans_controller_1.createPaymentPlan);
+exports.paymentPlansRoutes.patch("/payment-plans", payment_plans_controller_1.updatePaymentPlan);
+exports.paymentPlansRoutes.delete("/payment-plans/:id", payment_plans_controller_1.deletePaymentPlan);

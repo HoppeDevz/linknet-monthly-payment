@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv'; dotenv.config();
+
+export const API_PORT = Number(process.env.API_PORT) ?? 8080;
 
 export const PG_HOST = process.env.PG_HOST ?? "localhost"
 export const PG_PORT = Number(process.env.PG_PORT) ?? 5432
