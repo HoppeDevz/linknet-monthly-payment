@@ -54,8 +54,6 @@ export const InvoiceTask = new CronJob(
                     init_point: payment.response.init_point
                 });
 
-                console.log({ createdPayment })
-
                 console.log("[Invoice-Task] - Inserting invoice into database...");
                 await UserInvoiceUseCases.create({
                     user_id: userPlan.user_id,

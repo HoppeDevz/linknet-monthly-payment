@@ -1,5 +1,13 @@
-import { MERCADOPAGO_PUBLIC_KEY, MERCADOPAGO_ACCESS_TOKEN, MERCADOPAGO_PAYMENT_BACKURLS, MERCADOPAGO_SUCCESS_BACKURL, MERCADOPAGO_FAILURE_BACKURL, MERCADOPAGO_PENDING_BACKURL } from "@/constants/index";
 import mercadopago from "mercadopago";
+
+import { 
+    MERCADOPAGO_ACCESS_TOKEN, 
+    MERCADOPAGO_PAYMENT_BACKURLS, 
+    MERCADOPAGO_SUCCESS_BACKURL, 
+    MERCADOPAGO_FAILURE_BACKURL, 
+    MERCADOPAGO_PENDING_BACKURL 
+} from "@/constants/index";
+
 import { CreatePreferencePayload } from "mercadopago/models/preferences/create-payload.model";
 
 mercadopago.configure({
