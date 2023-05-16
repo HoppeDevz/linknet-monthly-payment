@@ -14,8 +14,6 @@ export const createPayment = async (title: string, price: number, amount = 1) =>
         ]
     }
 
-    console.log({ MERCADOPAGO_PAYMENT_BACKURLS })
-
     if (MERCADOPAGO_PAYMENT_BACKURLS) {
 
         preferenceObject.back_urls = {

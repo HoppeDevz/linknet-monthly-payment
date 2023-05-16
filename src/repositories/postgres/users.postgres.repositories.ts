@@ -3,10 +3,11 @@ import { createUserSQL } from "../../data/sql/postgres/create_user.sql";
 import { getUserSQL } from "../../data/sql/postgres/get_user.sql";
 import { query } from "../../database/postgres";
 
-import type { IUsersRepository, User } from "../../domain/users";
+import type { IUsersRepository } from "../../domain/users";
 import { getUserByUniqueFieldsSQL } from "@/data/sql/postgres/get_user_by_unique_fields";
 import { deleteUserSQL } from "@/data/sql/postgres/delete_user.sql";
 import { updateUserSQL } from "@/data/sql/postgres/update_user.sql";
+import { User } from "@/entities/User";
 
 const create = async (user: User) => {
 

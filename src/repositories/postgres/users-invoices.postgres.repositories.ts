@@ -1,5 +1,5 @@
 import { createInvoiceSQL } from "@/data/sql/postgres/create_invoice.sql";
-import { openTransaction, rollbackTransaction } from "@/database/postgres";
+import { commitTransaction, openTransaction, rollbackTransaction } from "@/database/postgres";
 import { IUserInvoiceRepository } from "@/domain/users-invoices";
 import { UserInvoice } from "@/entities/UserInvoice";
 
@@ -15,6 +15,7 @@ const create = async(userInvoice: UserInvoice) => {
             userInvoice.payment_id
         ]);
 
+        await commitTransaction(poolClient);
         return rows[0];
 
     } catch(err) {

@@ -14,7 +14,7 @@ const create = async(payment: Payment) => {
         const {rows} = await poolClient.query<Payment>(
             createPaymentSQL, 
             [
-                payment.id, 
+                payment.mp_payment_id, 
                 payment.init_point
             ]
         );

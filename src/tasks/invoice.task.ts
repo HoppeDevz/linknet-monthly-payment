@@ -17,8 +17,6 @@ export const InvoiceTask = new CronJob(
     '0 * * * * *',
     async function() {
 
-        if (!whatsapp.client || !whatsapp.client.autheticated) return;
-
         console.log("[Invoice-Task] - Running task...");
 
         const usersPlans = await UserPlanUseCases.getNonBilledPlans();
@@ -50,11 +48,13 @@ export const InvoiceTask = new CronJob(
                 console.log("[Invoice-Task] - Creating payment...");
                 const payment = await createPayment(`Plano LinkNet ${paymentPlan.name}`, paymentPlan.price);
 
-                console.log("[Invoice-Task] - Inserting payment into database...");
+                console.log("[Invoice-Task] - Inserting payment into database...", payment.response.id, payment.response.init_point);
                 const createdPayment = await PaymentsUseCases.create({
                     mp_payment_id: payment.response.id,
                     init_point: payment.response.init_point
                 });
+
+                console.log({ createdPayment })
 
                 console.log("[Invoice-Task] - Inserting invoice into database...");
                 await UserInvoiceUseCases.create({
