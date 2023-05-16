@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  linknet-monthly-payment-api:
+    build:
+      context: .
+      dockerfile: dev_image.dockerfile
+    #ports:
+    #  - "8000:8000"
+    volumes:
+      # you_local_path/:your_container_path
+      - "./src:/app/src"
+    network_mode: host
+    command: "npm run dev"

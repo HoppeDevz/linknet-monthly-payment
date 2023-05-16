@@ -1,15 +1,35 @@
+import dayjs from "dayjs";
+
 import { createUserPlanSQL } from "@/data/sql/postgres/create_user_plan.sql";
+import { getNonBilledUsersPlansSQL } from "@/data/sql/postgres/get_non_billed_users_plans";
 import { getUserPlansSQL } from "@/data/sql/postgres/get_user_plans.sql";
 import { toogleUserPlanSQL } from "@/data/sql/postgres/toogle_user_plan.sql";
 import { commitTransaction, openTransaction, query, rollbackTransaction } from "@/database/postgres";
-import { IUserPlanRepository, UserPlan } from "@/domain/user-plans";
-import { User } from "@/domain/users";
+import { IUserPlanRepository } from "@/domain/user-plans";
+import { UserPlan } from "@/entities/UserPlan";
 
 const getUserPlans = async(userId: number) => {
 
     try {
 
         const {rows} = await query<UserPlan>(getUserPlansSQL, [userId]);
+
+        return rows;
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
+export const getNonBilledPlans = async() => {
+
+    try {
+
+        const firstMonthDay = dayjs().startOf('month');
+        const lastMonthDay = dayjs().endOf('month');
+
+        const {rows} = await query<UserPlan>(getNonBilledUsersPlansSQL, [firstMonthDay, lastMonthDay]);
 
         return rows;
 
@@ -29,7 +49,10 @@ const create = async(userPlan: UserPlan) => {
             createUserPlanSQL, 
             [
                 userPlan.user_id,
-                userPlan.plan_id
+                userPlan.plan_id,
+                userPlan.address,
+                userPlan.payday,
+                userPlan.status
             ]
         );
 
@@ -79,6 +102,7 @@ const desactivate = async(userPlanId: number) => {
 
 export const UserPlanRepository: IUserPlanRepository = {
     getUserPlans,
+    getNonBilledPlans,
     create,
     activate,
     desactivate

@@ -7,16 +7,22 @@
     "build": "npx tsc && tsc-alias",
     "start": "node build/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts",
-    "postgres:migrations": "yarn build && node build/database/postgres/migrations/run"
+    "postgres:migrations": "yarn build && node build/database/postgres/migrations/run",
+    "docker-compose-down": "docker-compose -f './docker-compose.yml' down",
+    "docker-compose-up:dev": "docker-compose -f './docker-compose.yml' up -d --build linknet-monthly-payment-api",
+    "docker:dev": "npm run docker-compose-down; npm run docker-compose-up:dev; docker-compose logs -f linknet-monthly-payment-api"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/cors": "^2.8.13",
+    "@types/cron": "^2.0.1",
     "@types/express": "^4.17.17",
+    "@types/mercadopago": "^1.5.8",
     "@types/mysql": "^2.15.21",
     "@types/pg": "^8.6.6",
+    "@types/qrcode-terminal": "^0.12.0",
     "ts-alias": "^0.0.7",
     "ts-node-dev": "^2.0.0",
     "tsc-alias": "^1.8.6",
@@ -24,13 +30,18 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "cors": "^2.8.5",
+    "cron": "^2.3.0",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
+    "mercadopago": "^1.5.16",
     "mysql": "^2.18.1",
     "pg": "^8.10.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.19.5",
     "zod": "^3.21.4"
   }
 }

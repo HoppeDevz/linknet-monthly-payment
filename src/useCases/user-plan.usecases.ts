@@ -1,5 +1,5 @@
-import { IUserPlanUseCases, UserPlan } from "@/domain/user-plans";
-import { User } from "@/domain/users";
+import { IUserPlanUseCases } from "@/domain/user-plans";
+import { UserPlan } from "@/entities/UserPlan";
 import { UserPlanRepository } from "@/repositories/postgres/user-plan.postgres.repositories";
 
 const getUserPlans = async(userId: number) => {
@@ -7,6 +7,20 @@ const getUserPlans = async(userId: number) => {
     try {
 
         const userPlans = UserPlanRepository.getUserPlans(userId);
+
+        return userPlans;
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
+const getNonBilledPlans = async() => {
+
+    try {
+
+        const userPlans = UserPlanRepository.getNonBilledPlans();
 
         return userPlans;
 
@@ -56,6 +70,7 @@ const desactivate = async(userPlanId: number) => {
 
 export const UserPlanUseCases: IUserPlanUseCases = {
     getUserPlans,
+    getNonBilledPlans,
     create,
     activate,
     desactivate

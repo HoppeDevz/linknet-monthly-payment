@@ -41,7 +41,7 @@ export const createUserPlan = async(req: Request, res: Response) => {
 
         const userPlan = createUserPlanBodySchema.parse(req.body);
 
-        const createdUserPlan = UserPlanUseCases.create(userPlan);
+        const createdUserPlan = await UserPlanUseCases.create(userPlan);
 
         res.status(EHTTP.StatusOK).send(createdUserPlan);
 

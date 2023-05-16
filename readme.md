@@ -8,18 +8,14 @@ Welcome to our project! This README file provides information on how to get star
 
 To get started with the project, follow the instructions below:
 
-1. Clone the repository to your local machine using `git clone https://github.com/HoppeDevz/linknet-monthly-payment.git`.
-2. Install all dependencies using `npm install` or `yarn install`.
-3. Create a `.env` file and configure your environment variables. See `.env.example` for reference.
-4. Start the development server using `npm start` or `yarn start`.
-5. Open your browser and go to `http://localhost:<ENV_API_PORT>`.
+1. Install docker
+```shell
+sudo pacman -Syu
+sudo pacman -S docker
+```
 
-## Database
-
-Before you can run the project, you need to create a docker volume for the database. Follow the instructions below:
-
-1. Create a docker volume using `docker volume create pgdata`.
-2. Create a docker container using the created volume using the command below:
+2. Create a docker volume using `docker volume create pgdata`.
+3. Create a docker container using the created volume using the command below:
 
 ```shell
 docker run -it --rm --name linknet-postgres -v pgdata:/var/lib/postgresql/data \
@@ -27,10 +23,22 @@ docker run -it --rm --name linknet-postgres -v pgdata:/var/lib/postgresql/data \
 -e POSTGRES_DB=linknet -p 5432:5432 -d postgres
 ```
 
-3. Run database migrations:
+4. Run database migrations:
 ```shell
 yarn postgres:migrations
 ```
+
+5. Pull the official NodeJS Image
+```
+sudo docker pull node
+```
+
+6. Fill .env file
+
+For dev enviroment run `sudo yarn docker:dev`
+For prod enviroment run `sudo yarn docker`
+
+Read the QR-Code that will appear in the terminal and enjoy!
 
 ## Conclusion
 

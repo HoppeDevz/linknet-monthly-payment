@@ -1,17 +1,11 @@
-
-export type PaymentPlan = {
-    id?: number
-    name: string
-    download_byte_rate: number
-    upload_byte_rate: number
-    price: number
-}
+import type { PaymentPlan } from "src/entities/PaymentPlan"
 
 export interface IPaymentPlanRepository {
     create: (paymentPlan: PaymentPlan) => Promise<PaymentPlan>
     update: (paymentPlan: PaymentPlan) => Promise<PaymentPlan>
     remove: (paymentPlanId: number) => Promise<void> 
     getAll: () => Promise<PaymentPlan[]>
+    findById: (paymentPlanId: number) => Promise<PaymentPlan | undefined>
 }
 
 export interface IPaymentPlanUseCases {
@@ -19,4 +13,5 @@ export interface IPaymentPlanUseCases {
     update: (paymentPlan: PaymentPlan) => Promise<PaymentPlan>
     remove: (paymentPlanId: number) => Promise<void> 
     getAll: () => Promise<PaymentPlan[]>
+    findById: (paymentPlanId: number) => Promise<PaymentPlan | undefined>
 }

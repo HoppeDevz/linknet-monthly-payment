@@ -1,10 +1,10 @@
-import { IUserUseCases, User } from "../domain/users";
+import { IUserUseCases } from "../domain/users";
 import { UserRepository } from "../repositories/postgres/users.postgres.repositories";
 import { CustomError } from "@/errors/custom-error";
 import { EHTTP } from "@/enums/http-status-codes";
 import { internalErrorCodes } from "@/enums/internal-error-codes";
 import { getInternalErrorMessageByErrorCode } from "@/enums/internal-error-messages";
-
+import { User } from "@/entities/User";
 
 export const create = async (user: User) => {
 

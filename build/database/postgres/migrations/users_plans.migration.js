@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS users_plans(
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
     plan_id INT REFERENCES payment_plans(id),
+    address VARCHAR(255) NOT NULL,
+    payday INT NOT NULL,
     status BOOLEAN NOT NULL DEFAULT true,
 
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

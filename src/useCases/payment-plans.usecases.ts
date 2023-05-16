@@ -1,5 +1,6 @@
+import { PaymentPlan } from "@/entities/PaymentPlan";
 import { PaymentPlansRepository } from "@/repositories/postgres/payment-plans.postgres.repositories";
-import { IPaymentPlanUseCases, PaymentPlan } from "src/domain/payment-plans";
+import { IPaymentPlanUseCases } from "src/domain/payment-plans";
 
 export const create = async(paymentPlan: PaymentPlan) => {
 
@@ -55,10 +56,25 @@ export const getAll = async() => {
     }
 } 
 
+export const findById = async(paymentPlanId: number) => {
+
+    try {
+
+        const paymentPlan = await PaymentPlansRepository.findById(paymentPlanId);
+
+        return paymentPlan;
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
 
 export const PaymentPlansUseCases: IPaymentPlanUseCases = {
     create,
     update,
     remove,
-    getAll
+    getAll,
+    findById
 }
