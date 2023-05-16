@@ -1,9 +1,8 @@
+import { User } from "@/entities/User";
 import { createUserSQL } from "../../data/sql/mysql/create_user.sql";
 import { getLastInsertedUserSQL } from "../../data/sql/mysql/get_last_inserted_user.sql";
 import { getUserSQL } from "../../data/sql/mysql/get_user.sql";
 import { connectionQuery, query, runTransaction } from "../../database/mysql";
-
-import type { IUsersRepository, User } from "../../domain/users";
 
 const create = async (user: User) => {
     

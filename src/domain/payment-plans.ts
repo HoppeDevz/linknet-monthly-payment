@@ -1,4 +1,4 @@
-import type { PaymentPlan } from "src/entities/PaymentPlan"
+import type { PaymentPlan } from "@/entities/PaymentPlan"
 
 export interface IPaymentPlanRepository {
     create: (paymentPlan: PaymentPlan) => Promise<PaymentPlan>

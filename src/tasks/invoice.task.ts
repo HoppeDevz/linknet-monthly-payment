@@ -1,9 +1,8 @@
 import dayjs from "dayjs";
 import { CronJob } from "cron";
 
-import whatsapp from "src/adapters/messages/whatsapp";
-
-import { createPayment } from "src/adapters/payments/mercadopago";
+import whatsapp from "@/adapters/messages/whatsapp";
+import { createPayment } from "@/adapters/payments/mercadopago";
 
 import { WhatsAppInvoiceMessage } from "@/data/template/whatsapp-message";
 

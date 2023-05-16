@@ -1,4 +1,4 @@
-import type { UserPlan } from "src/entities/UserPlan"
+import type { UserPlan } from "@/entities/UserPlan"
 
 export interface IUserPlanUseCases {
     getUserPlans: (userId: number) => Promise<UserPlan[]>

@@ -10,6 +10,8 @@
     "postgres:migrations": "yarn build && node build/database/postgres/migrations/run",
     "docker-compose-down": "docker-compose -f './docker-compose.yml' down",
     "docker-compose-up:dev": "docker-compose -f './docker-compose.yml' up -d --build linknet-monthly-payment-api",
+    "docker-compose-up:prod": "docker-compose -f './prod_docker-compose.yml' up -d --build linknet-monthly-payment-api",
+    "docker": "npm run docker-compose-down; npm run docker-compose-up:prod; docker-compose logs -f linknet-monthly-payment-api",
     "docker:dev": "npm run docker-compose-down; npm run docker-compose-up:dev; docker-compose logs -f linknet-monthly-payment-api"
   },
   "keywords": [],
