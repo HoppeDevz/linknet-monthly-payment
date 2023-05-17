@@ -11,6 +11,8 @@ RUN apt-get install -yyq gconf-service lsb-release wget xdg-utils
 RUN apt-get install -yyq fonts-liberation 
 
 WORKDIR /app
-COPY package.json /app
+COPY . .
+
 RUN npm install
+
 COPY . /app

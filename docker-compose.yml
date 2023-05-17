@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  linknet-monthly-payment-api:
+  linknet-monthly-payment-api-dev:
     build:
       context: .
       dockerfile: dev_image.dockerfile

@@ -10,7 +10,7 @@ import { CronJob } from "cron";
 
 
 export const PaymentsTask = new CronJob(
-    '0 * * * * *',
+    '0 12 * * * *',
     async function() {
 
         const pendingPayments = await PaymentsUseCases.getAllPending();
