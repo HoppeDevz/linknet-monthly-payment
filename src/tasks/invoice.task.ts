@@ -14,7 +14,7 @@ import { UserPlanUseCases } from "@/useCases/user-plan.usecases";
 import { PaymentPlansUseCases } from "@/useCases/payment-plans.usecases";
 
 export const InvoiceTask = new CronJob(
-    '30 12 * * * *',
+    '45 12 * * * *',
     async function() {
 
         console.log("[Invoice-Task] - Running task...");
@@ -80,5 +80,6 @@ export const InvoiceTask = new CronJob(
         }
     },
     /* onEnd */ null,
-    /* startNow */ true
+    /* startNow */ true,
+    'America/Sao_Paulo'
 );
