@@ -1,9 +1,9 @@
 import qrCode from "qrcode-terminal";
 
-import type { Client, ClientSession, Message } from "whatsapp-web.js";
+import type { ClientSession, Message } from "whatsapp-web.js";
 import type { WhatsAppClient } from "./@types";
 
-export const qrCodeEvent = (client: Client) => (qr: string) => {
+export const qrCodeEvent = (client: WhatsAppClient) => (qr: string) => {
 
     qrCode.generate(qr, { small: true });
 }

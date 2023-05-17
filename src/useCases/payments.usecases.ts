@@ -16,6 +16,49 @@ export const create = async(payment: Payment) => {
     }
 }
 
+export const updatePaymentStatus = async(id: number, paymentId: string, status: string) => {
+
+    try {
+
+        await PaymentsRepository.updatePaymentStatus(id, paymentId, status);
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
+export const getAll = async() => {
+    
+    try {
+
+        const payments = await PaymentsRepository.getAll();
+
+        return payments;
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
+export const getAllPending = async() => {
+
+    try {
+
+        const payments = await PaymentsRepository.getAllPending();
+
+        return payments;
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
 export const PaymentsUseCases: IPaymentsUseCases = {
-    create
+    create,
+    updatePaymentStatus,
+    getAll,
+    getAllPending
 }

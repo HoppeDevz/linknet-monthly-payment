@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { v4 as uuidv4 } from "uuid";
 import { CronJob } from "cron";
 
 import whatsapp from "@/adapters/messages/whatsapp";
@@ -45,11 +46,14 @@ export const InvoiceTask = new CronJob(
                 }
 
                 console.log("[Invoice-Task] - Creating payment...");
-                const payment = await createPayment(`Plano LinkNet ${paymentPlan.name}`, paymentPlan.price);
+
+                const paymentReference = uuidv4();
+                const payment = await createPayment(`Plano LinkNet ${paymentPlan.name}`, paymentPlan.price, paymentReference);
 
                 console.log("[Invoice-Task] - Inserting payment into database...", payment.response.id, payment.response.init_point);
                 const createdPayment = await PaymentsUseCases.create({
-                    mp_payment_id: payment.response.id,
+                    reference: paymentReference,
+                    preference_id: payment.response.id,
                     init_point: payment.response.init_point
                 });
 
@@ -63,6 +67,8 @@ export const InvoiceTask = new CronJob(
                 console.log("[Invoice-Task] - Sending whatsapp message...");
                 const phone = user.phone;
                 const message = WhatsAppInvoiceMessage(
+                    user.first_name,
+                    user.last_name,
                     payday.format("DD/MM/YYYY"),
                     (paymentPlan.price).toLocaleString('pt-BR', { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' }),
                     createdPayment.init_point

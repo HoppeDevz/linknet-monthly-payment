@@ -14,6 +14,8 @@ import { ErrorHandler } from '@/http/middlewares/error-handler';
 import { API_PORT } from "./constants";
 import { userPlansRoutes } from "./routes/users-plans.routes";
 import { InvoiceTask } from "./tasks/invoice.task";
+import { PaymentsTask } from "./tasks/verifyPayment.task";
+import { createPayment, verifyPayment } from "./adapters/payments/mercadopago";
 
 
 const app = express();
@@ -22,7 +24,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(userRoutes);
-app.use(paymentPlansRoutes)
+app.use(paymentPlansRoutes);
 app.use(userPlansRoutes);
 
 app.use(ErrorHandler);
@@ -30,6 +32,7 @@ app.use(ErrorHandler);
 whatsapp.initialize();
 
 InvoiceTask.start();
+PaymentsTask.start();
 
 app.listen(API_PORT, () => {
 

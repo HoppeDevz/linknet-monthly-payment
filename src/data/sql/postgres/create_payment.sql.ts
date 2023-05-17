@@ -1,12 +1,15 @@
 export const createPaymentSQL =
 /* sql */`
 INSERT INTO 
-    payments (mp_payment_id, init_point)
+    public.payments (reference, preference_id, init_point)
 VALUES
-    ($1, $2)
+    ($1, $2, $3)
 RETURNING
     id,
-    mp_payment_id,
+    reference,
+    preference_id,
     init_point,
+    payment_id,
+    status,
     created_at
 `;

@@ -16,6 +16,21 @@ const create = async(userInvoice: UserInvoice) => {
     }
 }
 
+const findByPaymentId = async(paymentId: number) => {
+
+    try {
+
+        const userInvoice = await UserInvoiceRepository.findByPaymentId(paymentId); 
+
+        return userInvoice;
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
 export const UserInvoiceUseCases: IUserInvoiceUseCases = {
-    create
+    create,
+    findByPaymentId
 }
