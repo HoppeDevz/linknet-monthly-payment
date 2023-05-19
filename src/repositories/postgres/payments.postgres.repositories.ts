@@ -6,6 +6,7 @@ import { createPaymentSQL } from "@/data/sql/postgres/create_payment.sql";
 import { getAllPaymentsSQL } from "@/data/sql/postgres/get_all_payments.sql";
 import { updatePaymentStatusSQL } from "@/data/sql/postgres/update_payment_id.sql";
 import { getAllPendingPaymentsSQL } from "@/data/sql/postgres/get_all_pending_payments.sql";
+import { getAllApprovedPaymentsWithoutMessageSended } from "@/data/sql/postgres/get_all_approved_payments_ww_message.sql";
 
 const create = async(payment: Payment) => {
 
@@ -79,9 +80,24 @@ export const getAllPending = async() => {
     }
 }
 
+export const getAllApprovedWithoutMessageSended = async() => {
+
+    try {
+
+        const {rows} = await query<Payment>(getAllApprovedPaymentsWithoutMessageSended);
+
+        return rows;
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
 export const PaymentsRepository: IPaymentsRepository = {
     create,
     updatePaymentStatus,
     getAll,
-    getAllPending
+    getAllPending,
+    getAllApprovedWithoutMessageSended
 }

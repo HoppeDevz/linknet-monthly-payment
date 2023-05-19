@@ -9,6 +9,8 @@ export const MERCADOPAGO_SUCCESS_BACKURL = process.env.MERCADOPAGO_SUCCESS_BACKU
 export const MERCADOPAGO_FAILURE_BACKURL = process.env.MERCADOPAGO_FAILURE_BACKURL ?? "";
 export const MERCADOPAGO_PENDING_BACKURL = process.env.MERCADOPAGO_PENDING_BACKURL ?? "";
 
+export const PIX_KEY = process.env.PIX_KEY ?? "";
+
 export const PG_HOST = process.env.PG_HOST ?? "localhost"
 export const PG_PORT = Number(process.env.PG_PORT ?? 5432)
 export const PG_USER = process.env.PG_USER ?? "root"

@@ -11,6 +11,8 @@ CREATE TABLE IF NOT EXISTS payments(
     payment_id VARCHAR(255),
     status VARCHAR(128),
 
+    sended_message BOOLEAN NOT NULL DEFAULT false,
+
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 `;

@@ -1,3 +1,4 @@
+import { WhatsappMessagesUsecases } from "@/useCases/whatsapp-messages.usecases";
 import { WhatsAppClient } from "./@types";
 import { createClient } from "./factory";
 
@@ -27,6 +28,7 @@ const sendMessage = async (number: string, message: string) => {
     try {
 
         await client.sendMessage(number + "@c.us", message);
+        await WhatsappMessagesUsecases.create(number, message);
 
     } catch(err) {
 

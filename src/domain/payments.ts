@@ -5,6 +5,7 @@ export interface IPaymentsRepository {
     updatePaymentStatus: (id: number, paymentId: string, status: string) => Promise<void>
     getAll: () => Promise<Payment[]>
     getAllPending: () => Promise<Payment[]>
+    getAllApprovedWithoutMessageSended: () => Promise<Payment[]>
 }
 
 export interface IPaymentsUseCases {
@@ -12,4 +13,5 @@ export interface IPaymentsUseCases {
     updatePaymentStatus: (id: number, paymentId: string, status: string) => Promise<void>
     getAll: () => Promise<Payment[]>
     getAllPending: () => Promise<Payment[]>
+    getAllApprovedWithoutMessageSended: () => Promise<Payment[]>
 }

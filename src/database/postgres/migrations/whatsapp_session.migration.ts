@@ -1,4 +1,4 @@
-export const whatsappMigration = 
+export const whatsappSessionsMigration = 
 /* sql */`
 CREATE TABLE IF NOT EXISTS whatsapp_sessions(
     

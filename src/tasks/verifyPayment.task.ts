@@ -35,24 +35,23 @@ export const PaymentsTask = new CronJob(
 
             await PaymentsUseCases.updatePaymentStatus(pendingPayment.id, payment.id.toString(), payment.status);
 
-            if (payment.status === "approved") {
+            // if (payment.status === "approved") {
 
-                console.log(`[PAYMENT-TASK] - ${pendingPayment.reference} approved!`);
-                console.log(`[PAYMENT-TASK] - Sending message to ${user.phone}!`);
-                // send whatsapp message
-                const phone = user.phone;
-                const message = PaymentSuccessfullMessage(
-                    user.first_name, 
-                    user.last_name, 
-                    dayjs(pendingPayment.created_at).format("DD/MM/YYYY")
-                );
+            //     console.log(`[PAYMENT-TASK] - ${pendingPayment.reference} approved!`);
+            //     console.log(`[PAYMENT-TASK] - Sending message to ${user.phone}!`);
+            //     // send whatsapp message
+            //     const phone = user.phone;
+            //     const message = PaymentSuccessfullMessage(
+            //         user.first_name, 
+            //         user.last_name, 
+            //         dayjs(pendingPayment.created_at).format("DD/MM/YYYY")
+            //     );
 
-                whatsapp.sendMessage(phone, message);
-            }
+            //     whatsapp.sendMessage(phone, message);
+            // }
         }
 
     },
     /* onEnd */ null,
-    /* startNow */ true,
-    'America/Sao_Paulo'
+    /* startNow */ true
 );

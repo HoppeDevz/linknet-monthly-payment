@@ -80,6 +80,5 @@ export const InvoiceTask = new CronJob(
         }
     },
     /* onEnd */ null,
-    /* startNow */ true,
-    'America/Sao_Paulo'
+    /* startNow */ true
 );

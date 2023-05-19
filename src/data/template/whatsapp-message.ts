@@ -1,3 +1,5 @@
+import { PIX_KEY } from "@/constants/index";
+
 export const WhatsAppInvoiceMessage = (firstname: string, lastname: string, invoiceRedLine: string, price: string, paymentUrl: string) => 
 `
 Olá ${firstname} ${lastname}! Eu sou o Mineirinho, seu assistente virtual da LinkNET. 😊
@@ -6,11 +8,10 @@ Para facilitar o pagamento, basta clicar no link abaixo:
 
 ${paymentUrl}
 
+Ou se preferir, basta enviar o valor para a chave PIX: ${PIX_KEY}
+
 Agradecemos antecipadamente pela sua atenção e pela preferência em utilizar nossos serviços. 🙏
 Se tiver alguma dúvida ou precisar de suporte adicional, estou à disposição para ajudar. 😊
-
-Conectando você ao mundo com velocidade e confiabilidade! 
-💻🌐✨ LinkNet Telecom - sua conexão para o futuro!
 `;
 
 export const PaymentSuccessfullMessage = (firstname: string, lastname: string, redLine: string) => 

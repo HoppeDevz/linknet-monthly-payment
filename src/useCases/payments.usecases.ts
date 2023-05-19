@@ -56,9 +56,24 @@ export const getAllPending = async() => {
     }
 }
 
+export const getAllApprovedWithoutMessageSended = async() => {
+
+    try {
+
+        const payments = await PaymentsRepository.getAllApprovedWithoutMessageSended();
+
+        return payments;
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
 export const PaymentsUseCases: IPaymentsUseCases = {
     create,
     updatePaymentStatus,
     getAll,
-    getAllPending
+    getAllPending,
+    getAllApprovedWithoutMessageSended
 }
