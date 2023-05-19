@@ -20,7 +20,7 @@ const initialize = async () => {
 
 const sendMessage = async (number: string, message: string) => {
 
-    if (!client) {
+    if (!client || client.ready === false) {
 
         throw new Error("[WHATSAPP-BOT] - Client not ready yet!");
     }
@@ -32,9 +32,9 @@ const sendMessage = async (number: string, message: string) => {
 
     } catch(err) {
 
+        console.log("[whatsapp-sendMessage] - Error", err);
         throw err;
     }
-    
 }
 
 export default {

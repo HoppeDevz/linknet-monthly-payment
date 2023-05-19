@@ -1,6 +1,5 @@
 require("express-async-errors");
 
-
 import express from "express";
 import cors from "cors";
 
@@ -15,7 +14,7 @@ import { API_PORT } from "./constants";
 import { userPlansRoutes } from "./routes/users-plans.routes";
 import { InvoiceTask } from "./tasks/invoice.task";
 import { PaymentsTask } from "./tasks/verifyPayment.task";
-import { createPayment, verifyPayment } from "./adapters/payments/mercadopago";
+import { PaymentsMessageTask } from "./tasks/payment-message.task";
 
 
 const app = express();
@@ -33,6 +32,7 @@ whatsapp.initialize();
 
 InvoiceTask.start();
 PaymentsTask.start();
+PaymentsMessageTask.start();
 
 app.listen(API_PORT, () => {
 

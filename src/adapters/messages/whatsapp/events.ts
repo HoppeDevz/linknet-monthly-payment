@@ -13,6 +13,8 @@ export const clientReadyEvent = (client: WhatsAppClient) => () => {
     console.log('[WHATSAPP-BOT] - Client is ready!');
 
     client.on("message", clientMessageEvent(client));
+
+    client.ready = true;
 }
 
 export const clientAuthenticated = (client: WhatsAppClient) => (session: ClientSession) => {

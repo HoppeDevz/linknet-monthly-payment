@@ -13,6 +13,7 @@ export const createClient = async () => {
     const client = new Client(clientOptions) as WhatsAppClient;
 
     client.autheticated = false;
+    client.ready = false;
 
     client.on("qr", qrCodeEvent(client));
     client.on("authenticated", clientAuthenticated(client));

@@ -32,7 +32,7 @@ export const PaymentsMessageTask = new CronJob(
                 if (!user) continue;
 
                 console.log(`[PAYMENT-MESSAGE-TASK] - Sending message to ${user.phone}!`);
-                // send whatsapp message
+                
                 const phone = user.phone;
                 const message = PaymentSuccessfullMessage(
                     user.first_name, 
@@ -40,7 +40,8 @@ export const PaymentsMessageTask = new CronJob(
                     dayjs(approvedPayment.created_at).format("DD/MM/YYYY")
                 );
 
-                whatsapp.sendMessage(phone, message);
+                await whatsapp.sendMessage(phone, message);
+                await PaymentsUseCases.updateMessageSendedStatus(approvedPayment.id);
 
             } catch(err) {
 

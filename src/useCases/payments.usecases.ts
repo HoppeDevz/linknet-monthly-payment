@@ -70,10 +70,25 @@ export const getAllApprovedWithoutMessageSended = async() => {
     }
 }
 
+export const updateMessageSendedStatus = async(id: number) => {
+
+    try {
+
+        await PaymentsRepository.updateMessageSendedStatus(id);
+
+    } catch(err) {
+
+        throw err;
+    }
+}
+
 export const PaymentsUseCases: IPaymentsUseCases = {
     create,
     updatePaymentStatus,
+
     getAll,
     getAllPending,
-    getAllApprovedWithoutMessageSended
+
+    getAllApprovedWithoutMessageSended,
+    updateMessageSendedStatus
 }

@@ -7,6 +7,7 @@ import { getAllPaymentsSQL } from "@/data/sql/postgres/get_all_payments.sql";
 import { updatePaymentStatusSQL } from "@/data/sql/postgres/update_payment_id.sql";
 import { getAllPendingPaymentsSQL } from "@/data/sql/postgres/get_all_pending_payments.sql";
 import { getAllApprovedPaymentsWithoutMessageSended } from "@/data/sql/postgres/get_all_approved_payments_ww_message.sql";
+import { updatePaymentSendedMessageStatusSQL } from "@/data/sql/postgres/update_payment_message_sended_status.sql";
 
 const create = async(payment: Payment) => {
 
@@ -94,10 +95,30 @@ export const getAllApprovedWithoutMessageSended = async() => {
     }
 }
 
+export const updateMessageSendedStatus = async(id: number) => {
+
+    const poolClient = await openTransaction();
+
+    try {
+
+        await poolClient.query(updatePaymentSendedMessageStatusSQL, [id]);
+
+        await commitTransaction(poolClient);
+
+    } catch(err) {
+
+        await rollbackTransaction(poolClient);
+        throw err;
+    }
+}
+
 export const PaymentsRepository: IPaymentsRepository = {
     create,
     updatePaymentStatus,
+    
     getAll,
     getAllPending,
-    getAllApprovedWithoutMessageSended
+
+    getAllApprovedWithoutMessageSended,
+    updateMessageSendedStatus
 }
